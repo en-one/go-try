@@ -85,42 +85,45 @@ func quickSort1(arr []int) []int {
 }
 
 // 堆排序---------------------------------------------
-// O(nlogn)
-
+// 基于堆的排序其实是一种选择排序
 func headSort(num []int) []int {
 	// 构建二叉堆
 	len := len(num)
-	index := (len - 1) / 2
-	for i := index; i >= 0; i-- {
-		heapfiy(i, len-1, num)
+	last_node := len - 1
+	parent_last_node := last_node / 2
+	for i := parent_last_node; i >= 0; i-- {
+		heapify(num, len, i)
 	}
 	// 排序
+	// 把最大的放最后，然后重新建堆
 	for i := len - 1; i >= 0; i-- {
-		if num[0] < num[i] {
-			num[0], num[i] = num[i], num[0]
-			heapfiy(0, i-1, num)
-		}
+		num[0], num[i] = num[i], num[0]
+		heapify(num, i, 0)
 	}
 
 	return num
 }
 
-func heapfiy(index, end int, arr []int) []int {
-	for {
-		child := 2*index + 1
-		if child > end {
-			break
-		}
-		if child+1 < end && arr[child] > arr[child+1] {
-			child++
-		}
-		if child < end && arr[index] > arr[child] {
-			arr[index], arr[child] = arr[child], arr[index]
-			index = child
-		} else {
-			break
-		}
+func heapify(tree []int, num, index int) []int {
+	if index >= num {
+		return tree
 	}
-	return arr
+	lchild := 2*index + 1
+	rchild := 2*index + 2
+	max := index
+
+	if lchild < num && tree[lchild] > tree[max] {
+		max = lchild
+	}
+
+	if rchild < num && tree[rchild] > tree[max] {
+		max = rchild
+	}
+
+	if max != index {
+		tree[index], tree[max] = tree[max], tree[index]
+		heapify(tree, num, max)
+	}
+	return tree
 
 }
