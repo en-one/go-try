@@ -30,60 +30,6 @@ func findSmallest(arr []int) int {
 	return smallest_index
 }
 
-// quickSort 快排---------------------------------------------------
-//
-// 以第一个为基准，大于第一个放右边，小于第一个放左边，分别对左右递归，然后集合
-func quickSort(nums []int, head, tail int) []int {
-	if head >= tail {
-		return nums
-	}
-
-	l, r := head, tail
-	mid := (r-l)/2 + l
-	pivot := nums[mid]
-
-	for l <= r {
-		for l <= r && nums[l] < pivot {
-			l++
-		}
-		for l <= r && nums[r] > pivot {
-			r--
-		}
-		if l <= r {
-			nums[l], nums[r] = nums[r], nums[l]
-			l++
-			r--
-		}
-	}
-
-	quickSort(nums, head, r)
-	quickSort(nums, l, tail)
-
-	return nums
-
-}
-
-func quickSort1(arr []int) []int {
-	if len(arr) < 2 {
-		return arr
-	}
-
-	pivot := arr[0]
-	var left, right []int
-
-	for i := 1; i <= len(arr)-1; i++ {
-		if arr[i] <= pivot {
-			left = append(left, arr[i])
-		} else {
-			right = append(right, arr[i])
-		}
-	}
-
-	left = quickSort1(left)
-	right = quickSort1(right)
-	return append(left, append([]int{pivot}, right...)...)
-}
-
 // 堆排序---------------------------------------------
 // 基于堆的排序其实是一种选择排序
 func headSort(num []int) []int {
@@ -104,6 +50,7 @@ func headSort(num []int) []int {
 	return num
 }
 
+// 小顶堆
 func heapify(tree []int, num, index int) []int {
 	if index >= num {
 		return tree
@@ -112,11 +59,11 @@ func heapify(tree []int, num, index int) []int {
 	rchild := 2*index + 2
 	max := index
 
-	if lchild < num && tree[lchild] > tree[max] {
+	if lchild < num && tree[lchild] < tree[max] {
 		max = lchild
 	}
 
-	if rchild < num && tree[rchild] > tree[max] {
+	if rchild < num && tree[rchild] < tree[max] {
 		max = rchild
 	}
 
@@ -126,4 +73,27 @@ func heapify(tree []int, num, index int) []int {
 	}
 	return tree
 
+}
+
+// quickSort 快排---------------------------------------------------
+// 以第一个为基准，大于第一个放右边，小于第一个放左边，分别对左右递归，然后集合
+func quickSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+
+	pivot := arr[0]
+	var left, right []int
+
+	for i := 1; i <= len(arr)-1; i++ {
+		if arr[i] <= pivot {
+			left = append(left, arr[i])
+		} else {
+			right = append(right, arr[i])
+		}
+	}
+
+	left = quickSort(left)
+	right = quickSort(right)
+	return append(left, append([]int{pivot}, right...)...)
 }
