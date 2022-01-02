@@ -17,16 +17,21 @@ func main() {
 		插入— O(n²)
 
 	*/
-
+	stableSort()
 }
 
 func unStableSort() {
 	arr := []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
-	fmt.Println(selectSort(arr))
+	fmt.Println("selectSort", selectSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
-	fmt.Println(headSort(arr))
+	fmt.Println("headSort", headSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
-	fmt.Println(quickSort(arr))
+	fmt.Println("quickSort", quickSort(arr))
+}
+
+func stableSort() {
+	arr := []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	fmt.Println("insertSort", insertSort(arr))
 }
