@@ -76,6 +76,7 @@ func heapify(tree []int, num, index int) []int {
 }
 
 // 希尔排序---------------------------------------------
+//  加强版分组插入，按3x+1进行递增排序
 func shellSort(arr []int) []int {
 	h := 1
 	for h < len(arr)/3 {
