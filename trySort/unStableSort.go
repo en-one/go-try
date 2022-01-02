@@ -75,6 +75,25 @@ func heapify(tree []int, num, index int) []int {
 
 }
 
+// 希尔排序---------------------------------------------
+func shellSort(arr []int) []int {
+	h := 1
+	for h < len(arr)/3 {
+		h = 3*h + 1 // 3x+1为一个合适的分组状态
+	}
+
+	for h >= 1 {
+		// 插入排序
+		for i := h; i < len(arr); i++ {
+			for j := i; j >= h && arr[j] < arr[j-h]; j -= h {
+				arr[j], arr[j-h] = arr[j-h], arr[j]
+			}
+		}
+		h /= 3
+	}
+	return arr
+}
+
 // quickSort 快排---------------------------------------------------
 // 以第一个为基准，大于第一个放右边，小于第一个放左边，分别对左右递归，然后集合
 func quickSort(arr []int) []int {
