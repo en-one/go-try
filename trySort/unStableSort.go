@@ -2,6 +2,20 @@ package main
 
 // selectSort 选择--------------------------------------------------
 // 手里一把扑克牌，把最小的放在最左边，然后从下一张开始，接着找最小的。
+func selectSort1(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		min := i
+		for j := i + 1; j < len(arr); j++ {
+			if arr[j] < arr[min] {
+				min = j
+			}
+		}
+		arr[i], arr[min] = arr[min], arr[i]
+	}
+
+	return arr
+}
+
 func selectSort(arr []int) []int {
 	var result []int
 	len := len(arr)
