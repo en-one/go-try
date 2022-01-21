@@ -14,7 +14,7 @@ import "fmt"
 			2、归并排序为稳定排序，其他为不稳定
 			3、快排和堆不需要建立额外的存储空间，而归并排序需要建立merge数组
 			4、平均复杂度来说，堆逊色于快排和归并，因为：“二叉堆的父子节点在内存中并不连续”
-	第一梯队：基计数序、桶排序、基数排序
+	第一梯队：计数数序、桶排序、基数排序
 			1、第一梯队的排序算法都是“线性复杂度的排序算法”
 			2、都为稳定排序
 */
@@ -57,7 +57,11 @@ func unStableSort() {
 }
 
 func stableSort() {
+
 	arr := []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	fmt.Println("bubbleSort", bubbleSort(arr))
+
+	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
 	fmt.Println("insertSort", insertSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
