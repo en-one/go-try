@@ -74,6 +74,7 @@ func merge(left, right []int) []int {
 // countingSort 计数-----------------------------------------------
 // 局限性：1、不适用于非整数排序
 // 找出数组的最大值和最小值，创建新数组[max+1]， 原数组值等于新数组下标时， 新数组值加一，最后把新数组下标按值的个数输出即排序完成
+
 func countingSort(arr []int) []int {
 	if len(arr) < 1 {
 		return arr
@@ -109,4 +110,55 @@ func CountMaxMin(data []int) (int, int) {
 		}
 	}
 	return min, max
+}
+
+// radixSort 基数-----------------------------------------------
+// 调用然后收集
+
+func radixSort(arr []int) []int {
+	key := maxLimit(arr)
+	tmp := make([]int, len(arr), len(arr))
+	count := new([10]int)
+	radix := 1
+	var i, j, k int
+	for i = 0; i < key; i++ { // 进行key次排序
+		// 初始化桶
+		for j = 0; j < 10; j++ {
+			count[j] = 0
+		}
+
+		for j = 0; j < len(arr); j++ {
+			k = (arr[j] / radix) % 10
+			count[k]++
+		}
+		// 叠加之后下标减一就是该元素在新数组中位置
+		for j = 1; j < 10; j++ {
+			count[j] = count[j-1] + count[j]
+		}
+		// 倒叙 保持当相同的桶中的元素后面的元素在后面
+		for j = len(arr) - 1; j >= 0; j-- {
+			k = (arr[j] / radix) % 10
+			tmp[count[k]-1] = arr[j]
+			count[k]--
+		}
+		for j = 0; j < len(arr); j++ {
+			arr[j] = tmp[j]
+		}
+
+		radix = radix * 10
+	}
+	return arr
+}
+
+// 计算最大的数一共有几位
+func maxLimit(arr []int) int {
+	ret := 1
+	var key int = 10
+	for i := 0; i < len(arr); i++ {
+		for arr[i] >= key {
+			key = key * 10
+			ret++
+		}
+	}
+	return ret
 }

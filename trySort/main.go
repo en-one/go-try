@@ -70,4 +70,7 @@ func stableSort() {
 	//arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
 	arr = []int{33, 11, 55, 7, 44, 1, 44}
 	fmt.Println("countingSort", countingSort(arr))
+
+	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	fmt.Println("radixSort", radixSort(arr))
 }
