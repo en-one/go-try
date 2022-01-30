@@ -46,7 +46,7 @@ func quickSort(arr []int) []int {
 	pivot := arr[0]
 	var left, right []int
 
-	for i := 1; i <= len(arr)-1; i++ {
+	for i := 1; i < len(arr); i++ {
 		if arr[i] <= pivot {
 			left = append(left, arr[i])
 		} else {

@@ -50,6 +50,7 @@ func unStableSort() {
 	fmt.Println("shellSort", shellSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	//arr = []int{9, 45, 23, 45, 23, 34, 34, 2, 21, 5, 3, 2, 9, -5, 0, 3}
 	fmt.Println("quickSort", quickSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
@@ -67,10 +68,14 @@ func stableSort() {
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
 	fmt.Println("mergeSort", mergeSort(arr))
 
-	//arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
-	arr = []int{33, 11, 55, 7, 44, 1, 44}
+	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	//arr = []int{33, 11, 55, 7, 44, 1, 44}
 	fmt.Println("countingSort", countingSort(arr))
 
 	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
 	fmt.Println("radixSort", radixSort(arr))
+
+	arr = []int{5, 7, 1, 8, 3, 2, 6, 4, 9}
+	//arr = []int{31, 16, 37, 2, 13, 32, 10, 27, 7, 42, 29, 18, 28, 12, 9}
+	fmt.Println("bucketSort", bucketSort(arr))
 }

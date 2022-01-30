@@ -113,8 +113,8 @@ func CountMaxMin(data []int) (int, int) {
 }
 
 // radixSort 基数-----------------------------------------------
-// 调用然后收集
 
+// 调用然后收集
 func radixSort(arr []int) []int {
 	key := maxLimit(arr)
 	tmp := make([]int, len(arr), len(arr))
@@ -161,4 +161,66 @@ func maxLimit(arr []int) int {
 		}
 	}
 	return ret
+}
+
+// bucketSort 基数-----------------------------------------------
+//
+//算法描述：基数排序类似计数排序，需要额外的空间来记录对应的基数内的数据 额外的空间是有序的，最终时间复杂度O(nlogrm),r是基数，r^m=n.当给定 特定的范围，计数排序又可以叫桶排序，当以10进制为基数时就是简单的桶排序
+// 将数组分到有限数量的桶里，每个桶在个别排序（快排、插入）。是计数排序的升级版，利用了函数的映射关系，射射关系才能觉得是否高效
+// 高效的因素：	1、在额外空间充足的情况下，尽量增大桶的数量
+//				2、使用的映射函数能够将输入的N个数据均匀的分配到K个桶中
+
+func bucketSort(arr []int) []int {
+	// 桶数
+	num := len(arr)
+	// k 数组最大值
+	max := getMaxInArr(arr)
+	// 二维切片
+	buckets := make([][]int, num)
+
+	//分配入桶, 映射规则比较重要
+	index := 0
+	for i := 0; i < num; i++ {
+		index = arr[i] * (num - 1) / max
+		buckets[index] = append(buckets[index], arr[i])
+	}
+
+	// 遍历每个桶，如果不是空桶，进行排序
+	tmpPos := 0
+	for i := 0; i < num; i++ {
+		bucketLen := len(buckets[i])
+		if bucketLen > 0 {
+			sortInBucket(buckets[i])
+
+			copy(arr[tmpPos:], buckets[i]) // 将排序好的桶的值，映射到原arr数组中
+			tmpPos = tmpPos + bucketLen
+		}
+	}
+	return arr
+}
+
+func getMaxInArr(arr []int) int {
+	max := arr[0]
+	for i := 0; i < len(arr); i++ {
+		if arr[i] > max {
+			max = arr[i]
+		}
+	}
+	return max
+}
+
+// 可选用任意排序
+func sortInBucket(bucket []int) {
+	length := len(bucket)
+	if length < 2 {
+		return
+	}
+
+	for i := 1; i < len(bucket); i++ {
+		for j := i; j > 0; j-- {
+			if bucket[j] < bucket[j-1] {
+				bucket[j], bucket[j-1] = bucket[j-1], bucket[j]
+			}
+		}
+	}
 }
